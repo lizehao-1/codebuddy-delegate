@@ -31,6 +31,30 @@ CodeBuddy has two modes. Pick correctly:
 
 Headless does *not* mean single-shot. The multi-turn context you'd get from an interactive session is available via `--session-id` — see the next section.
 
+## First-time login
+
+The CLI needs **one interactive login** before any headless call works. Run `codebuddy` with no arguments and pick a site:
+
+```
+Select login method:
+› Log in via Chinese Site          # copilot.tencent.com — mainland models
+  Log in via International Site    # codebuddy.ai — overseas models
+  Log in via Enterprise Domain     # private / self-hosted
+  Log in via iOA                   # Tencent internal only
+```
+
+The choice is **not cosmetic**: the two sites have separate accounts and expose different model sets. Pick the one whose models you actually need, then finish the browser authorization. Credentials persist — it's a one-time step.
+
+There is **no environment variable to preset the site** — the picker only appears in the interactive flow. For fully unattended setups, skip the picker by supplying credentials directly:
+
+```bash
+export CODEBUDDY_BASE_URL="https://<site-endpoint>"
+export CODEBUDDY_API_KEY="<key>"
+codebuddy -p "<task>" --output-format json
+```
+
+Under `-p`, `CODEBUDDY_API_KEY` is always used for model calls.
+
 ## Basic invocation
 
 ```bash
@@ -82,6 +106,14 @@ codebuddy -p "<task>" --disallowedTools "Bash" --permission-mode acceptEdits
 ```
 
 `--permission-mode` accepts: `acceptEdits`, `bypassPermissions`, `default`, `plan`, `dontAsk`, `auto`.
+
+Even with `-y`, HIGH/CRITICAL-risk commands may still prompt. For genuinely silent runs inside an isolated sandbox:
+
+```bash
+CODEBUDDY_IS_SANDBOX=1 codebuddy -p "<task>" -y
+```
+
+That is deliberately an env var rather than a flag, and it is never read from `settings.json` — so a repo can't silently grant itself full access. Treat it as high-risk: containers and throwaway VMs only.
 
 ## Choosing a model
 
