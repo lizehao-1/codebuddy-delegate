@@ -69,7 +69,19 @@ cp -r codebuddy-delegate ~/.codex/skills/codebuddy-delegate
 codebuddy
 ```
 
-走完浏览器授权即可，只需一次。
+会弹出站点选择，按你需要的模型选：
+
+```
+Select login method:
+› Log in via Chinese Site          # copilot.tencent.com — 国内模型
+  Log in via International Site    # codebuddy.ai — 海外模型
+  Log in via Enterprise Domain     # 企业私有化部署
+  Log in via iOA                   # 腾讯内部员工
+```
+
+**这一步别选错。** 两个站的账号体系和额度互相独立，能用的模型也不一样。而且**没有环境变量可以预设站点**，只能在交互界面里选，没法脚本化。
+
+选完走浏览器授权即可，只需一次，凭证会持久化。
 
 ### 4. 打开沙箱网络（重要）
 

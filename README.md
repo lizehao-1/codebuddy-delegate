@@ -69,7 +69,19 @@ The directory name must match the `name` field in `SKILL.md`.
 codebuddy
 ```
 
-Complete the browser authorization. One time only.
+A picker appears. Choose the site whose models you need:
+
+```
+Select login method:
+› Log in via Chinese Site          # copilot.tencent.com — mainland models
+  Log in via International Site    # codebuddy.ai — overseas models
+  Log in via Enterprise Domain     # private / self-hosted
+  Log in via iOA                   # Tencent internal only
+```
+
+**This choice matters.** The two sites have separate accounts and separate quotas, and they expose different model sets. There is also **no environment variable to preset it** — the picker only exists in this interactive flow, so it can't be scripted.
+
+Then complete the browser authorization. One time only; credentials persist.
 
 ### 4. Open the sandbox network (important)
 
